@@ -1,0 +1,6 @@
+@StreamingSubscriptionTrackerAPI_HostAddress = http://localhost:5285
+
+GET {{StreamingSubscriptionTrackerAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
