@@ -8,6 +8,6 @@ namespace StreamingSubscriptionTrackerAPI.Models.Context
 
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionCategory> SubscriptionCategories { get; set; }
-
+        public object SubscriptionResponseDTO { get; internal set; }
     }
 }
