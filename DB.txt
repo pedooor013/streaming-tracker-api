@@ -1,0 +1,12 @@
+CREATE TABLE category(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	name VARCHAR(80) NOT NULL UNIQUE
+);
+
+CREATE TABLE subscription(
+	id INT IDENTITY(1, 1) PRIMARY KEY,
+	name VARCHAR(80) NOT NULL,
+	price DECIMAL(10,2) NOT NULL,
+	date_to_paid DATE NOT NULL,
+	id_category INT NOT NULL REFERENCES category(id)
+);

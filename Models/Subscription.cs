@@ -1,6 +1,29 @@
-﻿namespace StreamingSubscriptionTrackerAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace StreamingSubscriptionTrackerAPI.Models
 {
     public class Subscription
     {
+        [Key]
+        [Column("id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
+        [Required]
+        [Column("name", TypeName = "varchar(80)")]
+        [MaxLength(80)]
+        public string Name { get; set; }
+        [Required]
+        [Column("price", TypeName = "decimal(10,2)")]
+        public decimal Price { get; set; }
+        [Required]
+        [Column("date_to_paid", TypeName = "date")]
+        public DateOnly DateToPaid { get; set; }
+        [Required]
+        [Column("id_category", TypeName = "int")]
+        public int IdCategory { get; set; }
+
+        [ForeignKey(nameof(IdCategory))]
+        public SubscriptionCategory Category { get; set; }
     }
 }
