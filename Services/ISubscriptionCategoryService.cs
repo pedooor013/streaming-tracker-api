@@ -2,7 +2,7 @@
 
 namespace StreamingSubscriptionTrackerAPI.Services
 {
-    public interface ISubscriptionCategory
+    public interface ISubscriptionCategoryService
     {
         //GET
         SubscriptionCategory GetById(int id);

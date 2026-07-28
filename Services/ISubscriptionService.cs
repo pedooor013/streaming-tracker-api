@@ -10,10 +10,10 @@ namespace StreamingSubscriptionTrackerAPI.Services
         List<SubscriptionResponseDTO> GetSubscriptionFromCategory(int idCategory);
 
         //POST
-        SubscriptionResponseDTO Create(SubscriptionResponseDTO subscription);
+        SubscriptionResponseDTO Create(SubscriptionRequestDTO subscription);
 
         //PUT
-        SubscriptionResponseDTO Update(int id, SubscriptionResponseDTO subscription);
+        SubscriptionResponseDTO Update(int id, SubscriptionRequestDTO subscription);
 
         //DELETE
         void Delete(int id);

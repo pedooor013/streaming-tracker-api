@@ -3,7 +3,7 @@ using StreamingSubscriptionTrackerAPI.Models.Context;
 
 namespace StreamingSubscriptionTrackerAPI.Services.Impl
 {
-    public class SubscriptionCategoryImpl : ISubscriptionCategory
+    public class SubscriptionCategoryImpl : ISubscriptionCategoryService
     {
         private MSSQLContext _context;
 
