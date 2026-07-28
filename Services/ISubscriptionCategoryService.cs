@@ -1,17 +1,17 @@
-﻿using StreamingSubscriptionTrackerAPI.Models;
+﻿using StreamingSubscriptionTrackerAPI.DTOs;
 
 namespace StreamingSubscriptionTrackerAPI.Services
 {
     public interface ISubscriptionCategoryService
     {
         //GET
-        SubscriptionCategory GetById(int id);
-        SubscriptionCategory GetByName(string name);
-        List<SubscriptionCategory> GetAll();
+        SubscriptionCategoryResponseDTO GetById(int id);
+        SubscriptionCategoryResponseDTO GetByName(string name);
+        List<SubscriptionCategoryResponseDTO> GetAll();
         //POST
-        SubscriptionCategory Create(SubscriptionCategory subscriptionCategory);
+        SubscriptionCategoryResponseDTO Create(SubscriptionCategoryRequestDTO subscriptionCategory);
         //PUT
-        SubscriptionCategory Update(int id, SubscriptionCategory subscriptionCategory);
+        SubscriptionCategoryResponseDTO Update(int id, SubscriptionCategoryRequestDTO subscriptionCategory);
         //DELETE
         void Delete(int id);
 
