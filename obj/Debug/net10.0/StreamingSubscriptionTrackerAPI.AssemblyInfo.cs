@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StreamingSubscriptionTrackerAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8aa3ac343715fdcf357bb6b3f39a94fc75ed7601")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+018d9bff28eaa04a9920ee18fdbd309c256a0e51")]
 [assembly: System.Reflection.AssemblyProductAttribute("StreamingSubscriptionTrackerAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StreamingSubscriptionTrackerAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
