@@ -1,4 +1,5 @@
-﻿using StreamingSubscriptionTrackerAPI.Models;
+﻿using StreamingSubscriptionTrackerAPI.DTOs;
+using StreamingSubscriptionTrackerAPI.Models;
 using StreamingSubscriptionTrackerAPI.Models.Context;
 
 namespace StreamingSubscriptionTrackerAPI.Services.Impl
@@ -13,41 +14,78 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //GET
-        public SubscriptionCategory GetById(int id) => _context.SubscriptionCategories.Find(id);
+        public List<SubscriptionCategoryResponseDTO> GetAll() => _context.SubscriptionCategories.Select(sc => ToResponseDTO(sc)).ToList();
+        public SubscriptionCategoryResponseDTO GetById(int id)
+        {
+            var subscriptionCategory = _context.SubscriptionCategories.FirstOrDefault(sc => sc.Id == id);
+            
+            if(subscriptionCategory == null)
+                throw new ArgumentException("Subscription category not found");
 
-        public SubscriptionCategory GetByName(string name) => _context.SubscriptionCategories.FirstOrDefault(sc => sc.Name == name);
+            return ToResponseDTO(subscriptionCategory);
+        }
 
-        public List<SubscriptionCategory> GetAll() => _context.SubscriptionCategories.ToList();
+        public SubscriptionCategoryResponseDTO GetByName(string name)
+        {
+            var subscriptionCategory = _context.SubscriptionCategories.FirstOrDefault(sc => sc.Name == name);
+
+            if(subscriptionCategory == null)
+                throw new ArgumentException("Subscription category not found");
+
+            return ToResponseDTO(subscriptionCategory);
+        }
 
         //POST
-        public SubscriptionCategory Create(SubscriptionCategory subscriptionCategory)
+        public SubscriptionCategoryResponseDTO Create(SubscriptionCategoryRequestDTO dto)
         {
-            _context.Add(subscriptionCategory);
+            var subscriptionCategory = new SubscriptionCategory
+            {
+                Name = dto.Name
+            };
+
+            _context.SubscriptionCategories.Add(subscriptionCategory);
             _context.SaveChanges();
-            return subscriptionCategory;
+
+            return ToResponseDTO(subscriptionCategory);
         }
-        
+
+
+
         //PUT
-        public SubscriptionCategory Update(int id, SubscriptionCategory subscriptionCategory)
+        public SubscriptionCategoryResponseDTO Update(int id, SubscriptionCategoryRequestDTO dto)
         {
             var existingSubscriptionCategory = _context.SubscriptionCategories.Find(id);
-            if(existingSubscriptionCategory == null) throw new ArgumentException($"SubscriptionCategory with id {id} not found.");
 
-            _context.Entry(existingSubscriptionCategory).CurrentValues.SetValues(subscriptionCategory);
+            if(existingSubscriptionCategory == null)
+                throw new ArgumentException("Subscription category not found");
+
+            existingSubscriptionCategory.Name = dto.Name;
+
             _context.SaveChanges();
-            return subscriptionCategory;
+
+            return ToResponseDTO(existingSubscriptionCategory);
         }
-        
+
         //DELETE
         public void Delete(int id)
         {
             var existingSubscriptionCategory = _context.SubscriptionCategories.Find(id);
-            if (existingSubscriptionCategory == null) throw new ArgumentException($"SubscriptionCategory with id {id} not found.");
-            _context.Remove(existingSubscriptionCategory);
+
+            if (existingSubscriptionCategory == null)
+                throw new ArgumentException("Subscription category not found");
+
+            _context.SubscriptionCategories.Remove(existingSubscriptionCategory);
             _context.SaveChanges();
-           
         }
-            
+
+        private SubscriptionCategoryResponseDTO ToResponseDTO(SubscriptionCategory subscriptionCategory)
+        {
+            return new SubscriptionCategoryResponseDTO
+            {
+                Id = (int)(long)subscriptionCategory.Id,
+                Name = subscriptionCategory.Name
+            };
+        }
 
     }
 }
