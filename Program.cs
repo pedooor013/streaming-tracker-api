@@ -15,6 +15,7 @@ builder.Services.AddDbContext<MSSQLContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ISubscriptionService, SubscriptionServiceImpl>();
+builder.Services.AddScoped<ISubscriptionCategoryService, SubscriptionCategoryServiceImpl>();
 
 var app = builder.Build();
 

@@ -1,25 +1,31 @@
-﻿using StreamingSubscriptionTrackerAPI.DTOs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using StreamingSubscriptionTrackerAPI.DTOs;
 using StreamingSubscriptionTrackerAPI.Models;
 using StreamingSubscriptionTrackerAPI.Models.Context;
 
 namespace StreamingSubscriptionTrackerAPI.Services.Impl
 {
-    public class SubscriptionCategoryImpl : ISubscriptionCategoryService
+    public class SubscriptionCategoryServiceImpl : ISubscriptionCategoryService
     {
         private MSSQLContext _context;
 
-        public SubscriptionCategoryImpl(MSSQLContext context)
+        public SubscriptionCategoryServiceImpl(MSSQLContext context)
         {
             _context = context;
         }
 
         //GET
-        public List<SubscriptionCategoryResponseDTO> GetAll() => _context.SubscriptionCategories.Select(sc => ToResponseDTO(sc)).ToList();
-       
+        private static SubscriptionCategoryResponseDTO ToResponseDTO(SubscriptionCategory subscriptionCategory) => new SubscriptionCategoryResponseDTO
+        {
+            Id = subscriptionCategory.Id,
+            Name = subscriptionCategory.Name
+        };
+
         public SubscriptionCategoryResponseDTO GetById(long id)
         {
             var subscriptionCategory = _context.SubscriptionCategories.FirstOrDefault(sc => sc.Id == id);
-            
+
             if(subscriptionCategory == null)
                 throw new ArgumentException("Subscription category not found");
 
@@ -34,6 +40,13 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
                 throw new ArgumentException("Subscription category not found");
 
             return ToResponseDTO(subscriptionCategory);
+        }
+
+        public List<SubscriptionCategoryResponseDTO> GetAll()
+        {
+            return _context.SubscriptionCategories
+                .Select(sc => ToResponseDTO(sc))
+                .ToList();
         }
 
         //POST
@@ -76,15 +89,5 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
             _context.SubscriptionCategories.Remove(existingSubscriptionCategory);
             _context.SaveChanges();
         }
-
-        private SubscriptionCategoryResponseDTO ToResponseDTO(SubscriptionCategory subscriptionCategory)
-        {
-            return new SubscriptionCategoryResponseDTO
-            {
-                Id = subscriptionCategory.Id,
-                Name = subscriptionCategory.Name
-            };
-        }
-
     }
 }
