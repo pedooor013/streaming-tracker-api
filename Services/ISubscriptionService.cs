@@ -5,17 +5,17 @@ namespace StreamingSubscriptionTrackerAPI.Services
     public interface ISubscriptionService
     {
         //GET
-        SubscriptionResponseDTO GetById(int id);
+        SubscriptionResponseDTO GetById(long id);
         List<SubscriptionResponseDTO> GetAll();
-        List<SubscriptionResponseDTO> GetSubscriptionFromCategory(int idCategory);
+        List<SubscriptionResponseDTO> GetSubscriptionFromCategory(long idCategory);
 
         //POST
         SubscriptionResponseDTO Create(SubscriptionRequestDTO subscription);
 
         //PUT
-        SubscriptionResponseDTO Update(int id, SubscriptionRequestDTO subscription);
+        SubscriptionResponseDTO Update(long id, SubscriptionRequestDTO subscription);
 
         //DELETE
-        void Delete(int id);
+        void Delete(long id);
     }
 }

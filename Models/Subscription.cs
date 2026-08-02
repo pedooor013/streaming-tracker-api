@@ -20,8 +20,8 @@ namespace StreamingSubscriptionTrackerAPI.Models
         [Column("date_to_paid", TypeName = "date")]
         public DateOnly DateToPaid { get; set; }
         [Required]
-        [Column("id_category", TypeName = "int")]
-        public int IdCategory { get; set; }
+        [Column("id_category")]
+        public long IdCategory { get; set; }
 
         [ForeignKey(nameof(IdCategory))]
         public SubscriptionCategory Category { get; set; }

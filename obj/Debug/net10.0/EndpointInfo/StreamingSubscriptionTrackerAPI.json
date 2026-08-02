@@ -71,7 +71,7 @@
                 "integer",
                 "string"
               ],
-              "format": "int32"
+              "format": "int64"
             }
           }
         ],
@@ -96,7 +96,7 @@
                 "integer",
                 "string"
               ],
-              "format": "int32"
+              "format": "int64"
             }
           }
         ],
@@ -141,7 +141,7 @@
                 "integer",
                 "string"
               ],
-              "format": "int32"
+              "format": "int64"
             }
           }
         ],
@@ -152,7 +152,7 @@
         }
       }
     },
-    "/subscription/api/Subscription/{name}": {
+    "/subscription/api/Subscription/category/{id}": {
       "get": {
         "tags": [
           "Subscription"
@@ -160,22 +160,15 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "pattern": "^-?(?:0|[1-9]\\d*)$",
               "type": [
                 "integer",
                 "string"
               ],
-              "format": "int32"
-            }
-          },
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+              "format": "int64"
             }
           }
         ],

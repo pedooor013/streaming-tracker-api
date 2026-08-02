@@ -1,5 +1,7 @@
 using StreamingSubscriptionTrackerAPI.Models.Context;
 using Microsoft.EntityFrameworkCore;
+using StreamingSubscriptionTrackerAPI.Services;
+using StreamingSubscriptionTrackerAPI.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<MSSQLContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ISubscriptionService, SubscriptionServiceImpl>();
 
 var app = builder.Build();
 

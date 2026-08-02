@@ -10,7 +10,7 @@ namespace StreamingSubscriptionTrackerAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         [Required]
-        [Column("name", TypeName = "varcha(80)")]
+        [Column("name", TypeName = "varchar(80)")]
         [MaxLength(80)]
         public string Name { get; set; }
         //Aqui vai ser aplicado a verificação se existe essa category antes de ser criada!

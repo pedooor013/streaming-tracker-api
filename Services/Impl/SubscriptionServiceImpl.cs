@@ -1,11 +1,12 @@
-﻿using StreamingSubscriptionTrackerAPI.Models;
+﻿using System.Linq;
+using StreamingSubscriptionTrackerAPI.Models;
 using StreamingSubscriptionTrackerAPI.Models.Context;
 using StreamingSubscriptionTrackerAPI.DTOs;
 
 namespace StreamingSubscriptionTrackerAPI.Services.Impl
 {
     public class SubscriptionServiceImpl : ISubscriptionService
-    {
+    { 
         private MSSQLContext _context;
 
         public SubscriptionServiceImpl(MSSQLContext context)
@@ -14,8 +15,12 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //GET
-        public List<SubscriptionResponseDTO> GetAll() => _context.Subscriptions.Select(s => ToResponseDTO(s)).ToList();
-        public SubscriptionResponseDTO GetById(int id)
+        public List<SubscriptionResponseDTO> GetAll() => _context.Subscriptions
+            .AsEnumerable() // materializa para evitar tentar traduzir o método de instância para SQL
+            .Select(ToResponseDTO)
+            .ToList();
+
+        public SubscriptionResponseDTO GetById(long id)
         {
             var subscription = _context.Subscriptions.Find(id);
             
@@ -24,7 +29,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
             return ToResponseDTO(subscription);
         }
 
-        public List<SubscriptionResponseDTO> GetSubscriptionFromCategory(int idCategory)
+        public List<SubscriptionResponseDTO> GetSubscriptionFromCategory(long idCategory)
         {
             var subscriptions = _context.Subscriptions.Where(s => s.IdCategory == idCategory).ToList();
 
@@ -48,7 +53,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //PUT
-        public SubscriptionResponseDTO Update(int id, SubscriptionRequestDTO dto)
+        public SubscriptionResponseDTO Update(long id, SubscriptionRequestDTO dto)
         {
             var existingSubscription = _context.Subscriptions.Find(id);
 
@@ -65,7 +70,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //DELETE
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var existingSubscription = _context.Subscriptions.Find(id);
             
@@ -90,9 +95,5 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
                 CategoryName = category?.Name
             };
         }
-
-
-
-
     }
 }

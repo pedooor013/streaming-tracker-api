@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Int64",
         "IsRequired": true
       }
     ],
@@ -51,7 +51,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Int64",
         "IsRequired": true
       },
       {
@@ -72,7 +72,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.Int64",
         "IsRequired": true
       }
     ],
@@ -81,19 +81,14 @@
   {
     "ContainingType": "StreamingSubscriptionTrackerAPI.Controllers.SubscriptionController",
     "Method": "GetSubscriptionFromCategory",
-    "RelativePath": "subscription/api/Subscription/{name}",
+    "RelativePath": "subscription/api/Subscription/category/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "name",
-        "Type": "",
+        "Type": "System.Int64",
         "IsRequired": true
       }
     ],

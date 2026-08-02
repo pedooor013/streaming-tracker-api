@@ -7,7 +7,7 @@
         public string Name { get; set; }
         public decimal Price { get; set; }
         public DateOnly DateToPaid { get; set; }
-        public int IdCategory { get; set; }
+        public long IdCategory { get; set; }
         public string CategoryName { get; set; }
     }
 }

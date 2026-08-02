@@ -15,7 +15,8 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
 
         //GET
         public List<SubscriptionCategoryResponseDTO> GetAll() => _context.SubscriptionCategories.Select(sc => ToResponseDTO(sc)).ToList();
-        public SubscriptionCategoryResponseDTO GetById(int id)
+       
+        public SubscriptionCategoryResponseDTO GetById(long id)
         {
             var subscriptionCategory = _context.SubscriptionCategories.FirstOrDefault(sc => sc.Id == id);
             
@@ -49,14 +50,12 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
             return ToResponseDTO(subscriptionCategory);
         }
 
-
-
         //PUT
-        public SubscriptionCategoryResponseDTO Update(int id, SubscriptionCategoryRequestDTO dto)
+        public SubscriptionCategoryResponseDTO Update(long id, SubscriptionCategoryRequestDTO dto)
         {
             var existingSubscriptionCategory = _context.SubscriptionCategories.Find(id);
 
-            if(existingSubscriptionCategory == null)
+            if (existingSubscriptionCategory == null)
                 throw new ArgumentException("Subscription category not found");
 
             existingSubscriptionCategory.Name = dto.Name;
@@ -67,7 +66,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //DELETE
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var existingSubscriptionCategory = _context.SubscriptionCategories.Find(id);
 
@@ -82,7 +81,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         {
             return new SubscriptionCategoryResponseDTO
             {
-                Id = (int)(long)subscriptionCategory.Id,
+                Id = subscriptionCategory.Id,
                 Name = subscriptionCategory.Name
             };
         }

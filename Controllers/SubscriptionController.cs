@@ -23,7 +23,7 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(long id)
         {
             try
             {
@@ -36,8 +36,8 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
             }
         }
 
-        [HttpGet("{name}")]
-        public IActionResult GetSubscriptionFromCategory(int id)
+        [HttpGet("category/{id}")]
+        public IActionResult GetSubscriptionFromCategory(long id)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] SubscriptionRequestDTO dto)
+        public IActionResult Update(long id, [FromBody] SubscriptionRequestDTO dto)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(long id)
         {
             try
             {
