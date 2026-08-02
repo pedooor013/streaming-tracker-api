@@ -8,7 +8,6 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
     [Route("subscription/api/[controller]")]
     public class SubscriptionController : ControllerBase
     {
-        private ISubscriptionService _subscriptionServices;
         public ISubscriptionService _subscriptionService;
 
         public SubscriptionController(ISubscriptionService subscriptionService)

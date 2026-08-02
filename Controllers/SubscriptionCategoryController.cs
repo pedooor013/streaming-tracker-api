@@ -49,11 +49,16 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost]                                                                  
         public IActionResult Create([FromBody] SubscriptionCategoryRequestDTO dto)
         {
             try
             {
+                var existingCategory = _subscriptionCategoryService.GetByName(dto.Name);
+
+                if (existingCategory != null)
+                    return BadRequest($"Category with the same name already exists this id is {existingCategory.Id}");
+
                 var subscriptionCategory = _subscriptionCategoryService.Create(dto);
                 return CreatedAtAction(nameof(GetById), new { id = subscriptionCategory.Id }, subscriptionCategory);
             }
