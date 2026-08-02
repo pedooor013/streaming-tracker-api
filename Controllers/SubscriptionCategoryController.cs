@@ -52,13 +52,13 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
         [HttpPost]                                                                  
         public IActionResult Create([FromBody] SubscriptionCategoryRequestDTO dto)
         {
+            dto.Name = dto.Name.ToLower();
+
+            if (_subscriptionCategoryService.ExistsByName(dto.Name))
+                return BadRequest($"Category with the name '{dto.Name}' already exists.");
+
             try
             {
-                var existingCategory = _subscriptionCategoryService.GetByName(dto.Name);
-
-                if (existingCategory != null)
-                    return BadRequest($"Category with the same name already exists this id is {existingCategory.Id}");
-
                 var subscriptionCategory = _subscriptionCategoryService.Create(dto);
                 return CreatedAtAction(nameof(GetById), new { id = subscriptionCategory.Id }, subscriptionCategory);
             }

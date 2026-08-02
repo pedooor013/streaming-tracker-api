@@ -8,6 +8,7 @@ namespace StreamingSubscriptionTrackerAPI.Services
         SubscriptionCategoryResponseDTO GetById(long id);
         SubscriptionCategoryResponseDTO GetByName(string name);
         List<SubscriptionCategoryResponseDTO> GetAll();
+        bool ExistsByName(string name);
         //POST
         SubscriptionCategoryResponseDTO Create(SubscriptionCategoryRequestDTO subscriptionCategory);
         //PUT

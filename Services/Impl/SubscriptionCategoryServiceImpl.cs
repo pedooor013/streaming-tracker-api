@@ -49,6 +49,9 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
                 .ToList();
         }
 
+        public bool ExistsByName(string name) =>
+            _context.SubscriptionCategories.Any(sc => sc.Name == name);
+
         //POST
         public SubscriptionCategoryResponseDTO Create(SubscriptionCategoryRequestDTO dto)
         {
