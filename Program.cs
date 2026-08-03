@@ -16,6 +16,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddScoped<ISubscriptionService, SubscriptionServiceImpl>();
 builder.Services.AddScoped<ISubscriptionCategoryService, SubscriptionCategoryServiceImpl>();
+builder.Services.AddScoped<IUserService, UserServiceImpl>();
 
 var app = builder.Build();
 

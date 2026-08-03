@@ -16,7 +16,7 @@ namespace StreamingSubscriptionTrackerAPI.DTOs
         public string Password { get; set; }
 
         [Required]
-        public bool Actived { get; set; }
+        public bool Actived { get; set; } = true;
 
     }
 }
