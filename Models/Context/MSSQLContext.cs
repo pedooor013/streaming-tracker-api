@@ -29,6 +29,14 @@ namespace StreamingSubscriptionTrackerAPI.Models.Context
                 .WithMany()
                 .HasForeignKey(sc => sc.IdUser)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }
