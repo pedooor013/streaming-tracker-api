@@ -12,8 +12,8 @@ using StreamingSubscriptionTrackerAPI.Models.Context;
 namespace StreamingSubscriptionTrackerAPI.Migrations
 {
     [DbContext(typeof(MSSQLContext))]
-    [Migration("20260802041702_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260803161401_AddCategory")]
+    partial class AddCategory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace StreamingSubscriptionTrackerAPI.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("id_category");
 
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_user");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
@@ -56,6 +60,8 @@ namespace StreamingSubscriptionTrackerAPI.Migrations
 
                     b.HasIndex("IdCategory");
 
+                    b.HasIndex("IdUser");
+
                     b.ToTable("Subscriptions");
                 });
 
@@ -68,6 +74,10 @@ namespace StreamingSubscriptionTrackerAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint")
+                        .HasColumnName("id_user");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
@@ -76,7 +86,47 @@ namespace StreamingSubscriptionTrackerAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdUser");
+
                     b.ToTable("SubscriptionCategories");
+                });
+
+            modelBuilder.Entity("StreamingSubscriptionTrackerAPI.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("Actived")
+                        .HasColumnType("bit")
+                        .HasColumnName("actived");
+
+                    b.Property<DateOnly>("CreatedAt")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("StreamingSubscriptionTrackerAPI.Models.Subscription", b =>
@@ -84,10 +134,29 @@ namespace StreamingSubscriptionTrackerAPI.Migrations
                     b.HasOne("StreamingSubscriptionTrackerAPI.Models.SubscriptionCategory", "Category")
                         .WithMany()
                         .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("StreamingSubscriptionTrackerAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StreamingSubscriptionTrackerAPI.Models.SubscriptionCategory", b =>
+                {
+                    b.HasOne("StreamingSubscriptionTrackerAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
