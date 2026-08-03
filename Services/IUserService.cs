@@ -4,11 +4,11 @@ namespace StreamingSubscriptionTrackerAPI.Services
     public interface IUserService
     {
         //GET
-        UserResponseDTO GetAll();
+        List<UserResponseDTO> GetAll();
         UserResponseDTO GetByUsername(string username);
         UserResponseDTO GetByEmail(string email);
         UserResponseDTO GetById(long id);
-        UserResponseDTO GetByActived(bool actived);
+        List<UserResponseDTO> GetByActived(bool actived);
 
         //POST
         UserResponseDTO Create(UserRequestDTO userDto);
