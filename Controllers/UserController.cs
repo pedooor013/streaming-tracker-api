@@ -101,6 +101,19 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        w
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(long id)
+        {
+            try
+            {
+                _userService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
