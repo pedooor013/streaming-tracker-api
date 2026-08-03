@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StreamingSubscriptionTrackerAPI.Models
 {
-    public class User
+    public class UserRequestDto
     {
         [Key]
         [Column("id")]

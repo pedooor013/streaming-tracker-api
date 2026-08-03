@@ -51,7 +51,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         //POST
         public UserResponseDTO Create(UserRequestDTO userDto)
         {
-            var user = new User
+            var user = new UserRequestDto
             {
                 Username = userDto.Name,
                 Email = userDto.Email,
@@ -110,7 +110,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //DTO UTILS
-        private UserResponseDTO ToResponseDTO(User user)
+        private UserResponseDTO ToResponseDTO(UserRequestDto user)
         {
             return new UserResponseDTO
             {
