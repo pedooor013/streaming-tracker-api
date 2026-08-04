@@ -60,8 +60,48 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
             }
         }
 
+        [HttpPut("update/{id}")]
+        public IActionResult Update(long id, [FromBody] UserRequestDTO userDto)
+        {
+            try
+            {
+                var updatedUser = _userService.Update(id, userDto);
+                return Ok(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [HttpPut("update/actived/{id}")]
+        public IActionResult UpdateActived(long id, [FromBody] bool actived)
+        {
+            try
+            {
+                var updatedUser = _userService.UpdateActived(id, actived);
+                return Ok(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut]
 
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(long id)
+        {
+            try
+            {
+                var deletedUser = _userService.Delete(id);
+                return Ok(deletedUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }
