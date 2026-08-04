@@ -48,7 +48,7 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
 
         [HttpPost]
         public IActionResult Create([FromBody] UserRequestDTO userDto)
-        {       
+        {
             try
             {
                 var createdUser = _userService.Create(userDto);
@@ -60,60 +60,8 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
             }
         }
 
-        [HttpPut("update/{id}")]
-        public IActionResult Update(long id, [FromBody] UserRequestDTO userDto)
-        {
-            try
-            {
-                var updatedUser = _userService.Update(id, userDto);
-                return Ok(updatedUser);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
-        [HttpPut("update/actived/{id}")]
-        public IActionResult UpdateActived(long id, [FromBody] bool actived)
-        {
-            try
-            {
-                var updatedUser = _userService.UpdateActived(id, actived);
-                return Ok(updatedUser);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
-        [HttpPut("update/password/{id}")]
-        public IActionResult UpdatePassword(long id)
-        {
-            try
-            {
-                var updatedUser = _userService.UpdatePassword(id, "newpassword");
-                return Ok(updatedUser);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
-        [HttpDelete("delete/{id}")]
-        public IActionResult Delete(long id)
-        {
-            try
-            {
-                _userService.Delete(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }

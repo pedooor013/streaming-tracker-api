@@ -51,17 +51,18 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         //POST
         public UserResponseDTO Create(UserRequestDTO userDto)
         {
-            var user = new UserRequestDto
+            var user = new User
             {
                 Username = userDto.Name,
                 Email = userDto.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password),
-                Actived = userDto.Actived
+                Actived = userDto.Actived,
+                CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow)
             };
 
             _context.Users.Add(user);
             _context.SaveChanges();
-            
+
             return ToResponseDTO(user);
         }
 
@@ -110,14 +111,15 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         }
 
         //DTO UTILS
-        private UserResponseDTO ToResponseDTO(UserRequestDto user)
+        private UserResponseDTO ToResponseDTO(User user)
         {
             return new UserResponseDTO
             {
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                Actived = user.Actived
+                Actived = user.Actived,
+                CreatedAt = user.CreatedAt
             };
         }
     }

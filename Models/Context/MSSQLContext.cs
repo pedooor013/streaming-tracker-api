@@ -8,7 +8,7 @@ namespace StreamingSubscriptionTrackerAPI.Models.Context
 
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionCategory> SubscriptionCategories { get; set; }
-        public DbSet<UserRequestDto> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,11 +30,11 @@ namespace StreamingSubscriptionTrackerAPI.Models.Context
                 .HasForeignKey(sc => sc.IdUser)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<UserRequestDto>()
+            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
-            modelBuilder.Entity<UserRequestDto>()
+            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
         }

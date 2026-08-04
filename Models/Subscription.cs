@@ -35,6 +35,6 @@ namespace StreamingSubscriptionTrackerAPI.Models
         public long IdUser { get; set; }
 
         [ForeignKey(nameof(IdUser))]
-        public UserRequestDto User { get; set; }
+        public User User { get; set; }
     }
 }

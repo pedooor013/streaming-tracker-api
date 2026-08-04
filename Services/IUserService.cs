@@ -1,4 +1,5 @@
 ﻿using StreamingSubscriptionTrackerAPI.DTOs;
+
 namespace StreamingSubscriptionTrackerAPI.Services
 {
     public interface IUserService
