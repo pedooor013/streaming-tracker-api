@@ -65,6 +65,14 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
 
             return ToResponseDTO(user);
         }
+        public UserResponseDTO Login(string username, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            if (user == null) throw new ArgumentException($"User with username {username} not found.");
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+            if (!isPasswordValid) throw new ArgumentException("Invalid username or password.");
+            return ToResponseDTO(user);
+        }
 
         //PUT
         public UserResponseDTO Update(long id, UserRequestDTO userDto)

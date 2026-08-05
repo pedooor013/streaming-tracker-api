@@ -59,6 +59,19 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("/login")]
+        public IActionResult Login([FromBody] UserLoginDTO loginDto)
+        {
+            try
+            {
+                var user = _userService.Login(loginDto.Username, loginDto.Password);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPut("update/{id}")]
         public IActionResult Update(long id, [FromBody] UserRequestDTO userDto)
