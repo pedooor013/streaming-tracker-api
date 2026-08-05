@@ -1,16 +1,22 @@
-﻿using StreamingSubscriptionTrackerAPI.DTOs;
+﻿using Microsoft.IdentityModel.Tokens;
+using StreamingSubscriptionTrackerAPI.DTOs;
 using StreamingSubscriptionTrackerAPI.Models;
 using StreamingSubscriptionTrackerAPI.Models.Context;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace StreamingSubscriptionTrackerAPI.Services.Impl
 {
     public class UserServiceImpl : IUserService
     {
         private MSSQLContext _context;
+        private readonly IConfiguration _configuration;
 
-        public UserServiceImpl(MSSQLContext context)
+        public UserServiceImpl(MSSQLContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         //GET
@@ -116,6 +122,28 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
             _context.Users.Remove(existingUser);
             _context.SaveChanges();
             return ToResponseDTO(existingUser);
+        }
+
+        //GENERATE TOKEN
+        private string GenerateToken(User user)
+        {
+            var jwtKey = _configuration["Jwt:Key"];
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         //DTO UTILS
