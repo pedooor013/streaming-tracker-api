@@ -59,7 +59,7 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public IActionResult Login([FromBody] UserLoginDTO loginDto)
         {
             try
