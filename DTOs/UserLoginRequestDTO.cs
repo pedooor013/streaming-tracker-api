@@ -2,7 +2,7 @@
 
 namespace StreamingSubscriptionTrackerAPI.DTOs
 {
-    public class UserLoginDTO
+    public class UserLoginRequestDTO
     {
         [Required]
         [MaxLength(100)]
