@@ -131,7 +131,7 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         private string GenerateToken(User user)
         {
             var jwtKey = _configuration["Jwt:Key"];
-
+            
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -165,7 +165,6 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
         {
             return new UserLoginResponseDTO
             {
-                Username = user.Username,
                 Token = GenerateToken(user)
             };
         }

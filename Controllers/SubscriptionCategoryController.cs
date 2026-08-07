@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StreamingSubscriptionTrackerAPI.DTOs;
 using StreamingSubscriptionTrackerAPI.Services;
 
 namespace StreamingSubscriptionTrackerAPI.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("subscription/api/category/[controller]")]
+    [Route("api/[controller]")]
     public class SubscriptionCategoryController : Controller
     {
         public ISubscriptionCategoryService _subscriptionCategoryService;

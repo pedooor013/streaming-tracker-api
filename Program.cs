@@ -8,6 +8,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Console.WriteLine($"Ambiente atual: {builder.Environment.EnvironmentName}");
+
 // Add services to the container.
 
 builder.Services.AddControllers();
