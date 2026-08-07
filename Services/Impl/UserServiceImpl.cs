@@ -71,13 +71,19 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
 
             return ToResponseDTO(user);
         }
-        public UserResponseDTO Login(string username, string password)
+        
+        public UserLoginResponseDTO Login(string username, string password)
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == username);
-            if (user == null) throw new ArgumentException($"User with username {username} not found.");
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
-            if (!isPasswordValid) throw new ArgumentException("Invalid username or password.");
-            return ToResponseDTO(user);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password)) throw new ArgumentException("Invalid user or password.");
+
+            var token = GenerateToken(new User
+            {
+                Id = user.Id,
+                Username = user.Username
+            });
+            return new UserLoginResponseDTO { Token = token };
         }
 
         //PUT
@@ -156,6 +162,14 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
                 Email = user.Email,
                 Actived = user.Actived,
                 CreatedAt = user.CreatedAt
+            };
+        }
+        private UserLoginResponseDTO ToResponseLoginDTO(User user)
+        {
+            return new UserLoginResponseDTO
+            {
+                Username = user.Username,
+                Token = GenerateToken(user)
             };
         }
     }

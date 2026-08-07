@@ -60,7 +60,7 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
             }
         }
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLoginDTO loginDto)
+        public IActionResult Login([FromBody] UserLoginRequestDTO loginDto)
         {
             try
             {

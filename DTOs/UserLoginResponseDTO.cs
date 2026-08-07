@@ -1,8 +1,7 @@
 ﻿namespace StreamingSubscriptionTrackerAPI.DTOs
 {
-    public class UserLoginResonseDTO
+    public class UserLoginResponseDTO
     {
         public string Token { get; set; }
-        public UserResponseDTO User { get; set; }
     }
 }
