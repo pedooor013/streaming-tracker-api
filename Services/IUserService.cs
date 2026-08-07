@@ -13,7 +13,7 @@ namespace StreamingSubscriptionTrackerAPI.Services
 
         //POST
         UserResponseDTO Create(UserRequestDTO userDto);
-        UserResponseDTO Login(string username, string password);
+        UserLoginResponseDTO Login(string usernameDto, string passwordDto);
 
         //PUT
         UserResponseDTO Update(long id, UserRequestDTO userDto);

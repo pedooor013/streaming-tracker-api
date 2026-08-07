@@ -78,11 +78,8 @@ namespace StreamingSubscriptionTrackerAPI.Services.Impl
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password)) throw new ArgumentException("Invalid user or password.");
 
-            var token = GenerateToken(new User
-            {
-                Id = user.Id,
-                Username = user.Username
-            });
+            var token = GenerateToken(user);
+
             return new UserLoginResponseDTO { Token = token };
         }
 
