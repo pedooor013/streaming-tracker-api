@@ -2,9 +2,11 @@
 using StreamingSubscriptionTrackerAPI.Models;
 using StreamingSubscriptionTrackerAPI.Services;
 using StreamingSubscriptionTrackerAPI.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StreamingSubscriptionTrackerAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : Controller
@@ -40,12 +42,13 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
             return Ok(_userService.GetById(id));
         }
 
-        [HttpGet]
+        [HttpGet("actived/{actived}")]
         public IActionResult GetByActived(bool actived)
         {
             return Ok(_userService.GetByActived(actived));
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Create([FromBody] UserRequestDTO userDto)
         {
@@ -59,6 +62,8 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserLoginRequestDTO loginDto)
         {
@@ -100,7 +105,20 @@ namespace StreamingSubscriptionTrackerAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut]
+        
+        [HttpPut("update/password/{id}")]
+        public IActionResult UpdatePassword(long id, [FromBody] string password)
+        {
+            try
+            {
+                var updatedUser = _userService.UpdatePassword(id, password);
+                return Ok(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpDelete("delete/{id}")]
         public IActionResult Delete(long id)
